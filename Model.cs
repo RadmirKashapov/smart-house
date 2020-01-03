@@ -6,5 +6,6 @@ namespace Smart_House
 {
     class Model
     {
+
     }
 }
