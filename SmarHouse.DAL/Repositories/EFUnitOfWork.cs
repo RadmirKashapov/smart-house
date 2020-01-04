@@ -1,9 +1,7 @@
 ﻿using SmartHouse.DAL.EF;
+using SmartHouse.DAL.Entities;
 using SmartHouse.DAL.Interfaces;
-using SmartHouse.DAL.Repositories;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace SmartHouse.DAL.Repositories
 {
@@ -21,9 +19,57 @@ namespace SmartHouse.DAL.Repositories
 
         public IRepository<House> Houses
         {
-            if(houseRepository == null)
-                houseRepository = new HouseRepository(db);
-            return houseRepository;
+            get
+            {
+                if (houseRepository == null)
+                    houseRepository = new HouseRepository(db);
+                return houseRepository;
+            }
+        }
+
+        public IRepository<Room> Rooms
+        {
+            get
+            {
+                if (roomRepository == null)
+                    roomRepository = new RoomRepository(db);
+                return roomRepository;
+            }
+        }
+
+        public IRepository<Sensor> Sensors
+        {
+            get
+            {
+                if (sensorRepository == null)
+                    sensorRepository = new SensorRepository(db);
+                return sensorRepository;
+            }
+        }
+
+        public void Save()
+        {
+            db.SaveChanges();
+        }
+
+        private bool disposed = false;
+
+        public virtual void Dispose(bool disposing)
+        {
+            if (!this.disposed)
+            {
+                if (disposing)
+                {
+                    db.Dispose();
+                }
+                this.disposed = true;
+            }
+        }
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
     }
 }

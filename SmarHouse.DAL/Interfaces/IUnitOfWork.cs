@@ -5,7 +5,7 @@ namespace SmartHouse.DAL.Interfaces
 {
     public interface IUnitOfWork : IDisposable
     {
-        IRepository<House> Homes { get; }
+        IRepository<House> Houses { get; }
         IRepository<Room> Rooms { get; }
         IRepository<Sensor> Sensors { get; }
         void Save();

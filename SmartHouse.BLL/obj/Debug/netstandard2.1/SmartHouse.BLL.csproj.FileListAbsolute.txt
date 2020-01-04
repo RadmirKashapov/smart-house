@@ -1,0 +1,4 @@
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\bin\Debug\netstandard2.1\SmartHouse.DAL.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\obj\Debug\netstandard2.1\SmartHouse.BLL.csprojAssemblyReference.cache
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\obj\Debug\netstandard2.1\SmartHouse.BLL.AssemblyInfoInputs.cache
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\obj\Debug\netstandard2.1\SmartHouse.BLL.AssemblyInfo.cs

@@ -26,7 +26,7 @@ namespace SmartHouse.DAL.EF
         {
             db.Houses.Add(new House { Name = "House 1" });
             db.Rooms.Add(new Room {  Name = "Room 1" });
-            db.Sensors.Add(new Sensor { Name = "Sensor 1", Date = DateTime.Now });
+            db.Sensors.Add(new Sensor { Name = "Sensor 1", Date = DateTime.Now , Data = 18});
             db.SaveChanges();
         }
     }

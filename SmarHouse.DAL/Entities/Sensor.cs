@@ -26,5 +26,8 @@ namespace SmartHouse.DAL.Entities
         [Display(Name = "Date")]
         public DateTime Date { get; set; }
 
+        [Display(Name = "Value of sensor")]
+        public int Data { get; set; }
+
     }
 }
