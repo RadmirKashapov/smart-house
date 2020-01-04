@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmarHouse.DAL.Entities
+namespace SmartHouse.DAL.Entities
 {
     public class House
     {

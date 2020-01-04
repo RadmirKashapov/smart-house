@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace SmarHouse.DAL.Entities
+namespace SmartHouse.DAL.Entities
 {
     public class Sensor
     {

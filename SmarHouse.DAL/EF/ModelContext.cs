@@ -1,11 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using System;
-using System.Configuration;
-using SmarHouse.DAL.Entities;
+﻿using System;
+using SmartHouse.DAL.Entities;
 using System.Data.Entity;
 
-namespace SmarHouse.DAL.EF
+namespace SmartHouse.DAL.EF
 {
     public class ModelContext : DbContext
     {

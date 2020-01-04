@@ -1661,9 +1661,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\mylif\\source\\repos\\SmartHouse\\SmarHouse.DAL\\SmarHouse.DAL.csproj",
-      "projectName": "SmarHouse.DAL",
-      "projectPath": "C:\\Users\\mylif\\source\\repos\\SmartHouse\\SmarHouse.DAL\\SmarHouse.DAL.csproj",
+      "projectUniqueName": "C:\\Users\\mylif\\source\\repos\\SmartHouse\\SmarHouse.DAL\\SmartHouse.DAL.csproj",
+      "projectName": "SmartHouse.DAL",
+      "projectPath": "C:\\Users\\mylif\\source\\repos\\SmartHouse\\SmarHouse.DAL\\SmartHouse.DAL.csproj",
       "packagesPath": "C:\\Users\\mylif\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\mylif\\source\\repos\\SmartHouse\\SmarHouse.DAL\\obj\\",
       "projectStyle": "PackageReference",

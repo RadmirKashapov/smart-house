@@ -1,14 +1,14 @@
-﻿using SmarHouse.DAL.EF;
-using SmarHouse.DAL.Entities;
-using SmarHouse.DAL.Interfaces;
+﻿using SmartHouse.DAL.EF;
+using SmartHouse.DAL.Entities;
+using SmartHouse.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SmarRoom.DAL.Repositories
+namespace SmartHouse.DAL.Repositories
 {
-    class RoomRepository : IRepository<Room>
+    public class RoomRepository : IRepository<Room>
     {
         private ModelContext db;
 

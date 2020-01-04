@@ -1,12 +1,12 @@
-﻿using SmarHouse.DAL.EF;
-using SmarHouse.DAL.Entities;
-using SmarHouse.DAL.Interfaces;
+﻿using SmartHouse.DAL.EF;
+using SmartHouse.DAL.Entities;
+using SmartHouse.DAL.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace SmarHouse.DAL.Repositories
+namespace SmartHouse.DAL.Repositories
 {
     public class HouseRepository : IRepository<House>
     {

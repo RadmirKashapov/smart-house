@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SmarHouse.DAL.Entities;
+﻿using SmartHouse.DAL.Entities;
+using System;
 
-namespace SmarHouse.DAL.Interfaces
+namespace SmartHouse.DAL.Interfaces
 {
-    interface IUnitOfWork : IDisposable
+    public interface IUnitOfWork : IDisposable
     {
         IRepository<House> Homes { get; }
         IRepository<Room> Rooms { get; }

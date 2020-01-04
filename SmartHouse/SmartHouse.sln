@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHouse", "SmartHouse.cs
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PresentationLayer", "..\PresentationLayer\PresentationLayer.csproj", "{3D234E23-4ACB-409F-9780-6EE1DC9AFF2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmarHouse.DAL", "..\SmarHouse.DAL\SmarHouse.DAL.csproj", "{2CE73ED8-5B82-4A65-BF59-3D4542FAC582}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartHouse.DAL", "..\SmarHouse.DAL\SmartHouse.DAL.csproj", "{2CE73ED8-5B82-4A65-BF59-3D4542FAC582}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
