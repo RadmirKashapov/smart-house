@@ -1,0 +1,6 @@
+C:\Users\mylif\source\repos\SmartHouse\SmarHouse.DAL\bin\Debug\netstandard2.0\SmarHouse.DAL.deps.json
+C:\Users\mylif\source\repos\SmartHouse\SmarHouse.DAL\bin\Debug\netstandard2.0\SmarHouse.DAL.dll
+C:\Users\mylif\source\repos\SmartHouse\SmarHouse.DAL\obj\Debug\netstandard2.0\SmarHouse.DAL.AssemblyInfoInputs.cache
+C:\Users\mylif\source\repos\SmartHouse\SmarHouse.DAL\obj\Debug\netstandard2.0\SmarHouse.DAL.AssemblyInfo.cs
+C:\Users\mylif\source\repos\SmartHouse\SmarHouse.DAL\obj\Debug\netstandard2.0\SmarHouse.DAL.csprojAssemblyReference.cache
+C:\Users\mylif\source\repos\SmartHouse\SmarHouse.DAL\bin\Debug\netstandard2.0\SmarHouse.DAL.dll.config
