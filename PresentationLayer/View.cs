@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Text;
 
-namespace Smart_House
+namespace PresentationLayer
 {
     class View
     {
@@ -178,7 +178,6 @@ namespace Smart_House
         private bool IsDigit(string str)
         {
             if (str == "") return false;
-            int count = 0;
             foreach(char c in str)
             {
                 if (c > '0' && c < '9')

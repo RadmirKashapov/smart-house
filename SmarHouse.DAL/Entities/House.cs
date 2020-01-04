@@ -1,18 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using MongoDB.Bson;
-using MongoDB.Bson.Serialization.Attributes;
-using System.ComponentModel.Designж
 using System.ComponentModel.DataAnnotations;
 
 namespace SmarHouse.DAL.Entities
 {
     public class House
     {
-        [BsonRepresentation(BsonType.ObjectId)]
-        public ObjectId Id { get; set; }
-        [Display(Name = "Название модели")]
+        [Display(Name = "Id")]
+        public int Id { get; set; }
+
+        [Display(Name = "House name")]
         public string Name { get; set; }
     }
 }
