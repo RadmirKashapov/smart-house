@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartHouse.BLL.DTO
+namespace SmartHouse.PL.Models
 {
-    public class SensorDTO
+    public class RoomViewModel
     {
         public int Id { get; set; }
-        public int Data { get; set; }
+        public string Name { get; set; }
     }
 }

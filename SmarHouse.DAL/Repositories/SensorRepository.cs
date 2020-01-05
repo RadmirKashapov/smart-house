@@ -11,6 +11,7 @@ namespace SmartHouse.DAL.Repositories
     public class SensorRepository : IRepository<Sensor>
     {
         private ModelContext db;
+        public int Count { get; set; } = 0;
 
         public SensorRepository(ModelContext context)
         {
@@ -30,6 +31,7 @@ namespace SmartHouse.DAL.Repositories
         public void Create(Sensor sensor)
         {
             db.Sensors.Add(sensor);
+            Count++;
         }
 
         public void Update(Sensor sensor)
@@ -46,7 +48,15 @@ namespace SmartHouse.DAL.Repositories
         {
             Sensor sensor = db.Sensors.Find(id);
             if (sensor != null)
+            {
                 db.Sensors.Remove(sensor);
+                Count--;
+            }
+        }
+
+        public int GetCount()
+        {
+            return Count;
         }
     }
 }

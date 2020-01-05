@@ -11,6 +11,7 @@ namespace SmartHouse.DAL.Repositories
     public class RoomRepository : IRepository<Room>
     {
         private ModelContext db;
+        public int Count { get; set; } = 0;
 
         public RoomRepository(ModelContext context)
         {
@@ -30,6 +31,7 @@ namespace SmartHouse.DAL.Repositories
         public void Create(Room room)
         {
             db.Rooms.Add(room);
+            Count++;
         }
 
         public void Update(Room room)
@@ -46,7 +48,14 @@ namespace SmartHouse.DAL.Repositories
         {
             Room room = db.Rooms.Find(id);
             if (room != null)
+            {
                 db.Rooms.Remove(room);
+                Count--;
+            }
+        }
+        public int GetCount()
+        {
+            return Count;
         }
     }
 }
