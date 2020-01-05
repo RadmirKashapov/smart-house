@@ -4,8 +4,11 @@ using System.Text;
 
 namespace SmartHouse.BLL.BusinessModels
 {
-    public class Average
+    public class Average<T> where T : class
     {
+        T collection;
 
+
+         
     }
 }

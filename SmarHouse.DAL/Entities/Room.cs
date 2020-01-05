@@ -15,8 +15,5 @@ namespace SmartHouse.DAL.Entities
 
         [Display(Name = "Id")]
         public int HouseId { get; set; }
-
-        [Display(Name = "House object")]
-        public House House { get; set; }
     }
 }
