@@ -89,7 +89,7 @@ namespace SmartHouse.BLL.Services
 
             var average = new Average(Database, houseId.Value, roomId.Value, duration);
 
-            return average.CalculateAverage();
+            return average.CalculateAverage(); 
         }
     }
 }
