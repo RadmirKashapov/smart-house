@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using SmartHouse.BLL.BusinessModels;
 using SmartHouse.BLL.DTO;
 using SmartHouse.BLL.Infrastructure;
 using SmartHouse.BLL.Interfaces;
@@ -75,9 +76,20 @@ namespace SmartHouse.BLL.Services
             Database.Save();
         }
 
-        public void CalculateAverage(int? houseId, int? roomId, int duration)
+        public double CalculateAverage(int? houseId, int? roomId, int duration)
         {
-            
+          //  0 - Day
+          //  1- month
+          //  2- year
+            if (houseId == null)
+                throw new ValidationException("Error: Incorrect house id", "");
+
+            if (roomId == null)
+                throw new ValidationException("Error: Incorrect room id", "");
+
+            var average = new Average(Database, houseId.Value, roomId.Value, duration);
+
+            return average.CalculateAverage();
         }
     }
 }

@@ -12,6 +12,6 @@ namespace SmartHouse.BLL.Interfaces
         IEnumerable<HouseDTO> ShowHouses();
         IEnumerable<RoomDTO> ShowRoomsInHouse(HouseDTO house);
         void EnterValueOfTemperature(int? data, int houseId = 0, int roomId = 0);
-        void CalculateAverage(int? houseId, int? roomId, int duration);
+        double CalculateAverage(int? houseId, int? roomId, int duration);
     }
 }
