@@ -20,7 +20,8 @@ namespace SmartHouse.DAL.EF
         }
     }
 
-    public class SensorDbInitializer : DropCreateDatabaseIfModelChanges<ModelContext>
+    //public class SensorDbInitializer : DropCreateDatabaseIfModelChanges<ModelContext>
+    public class SensorDbInitializer : DropCreateDatabaseAlways<ModelContext>
     {
         protected override void Seed(ModelContext db)
         {

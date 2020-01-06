@@ -11,6 +11,7 @@
         "dependencies": {
           "AutoMapper": "9.0.0",
           "Ninject": "3.3.4",
+          "Ninject.Web.Common": "3.3.1",
           "SmartHouse.DAL": "1.0.0"
         },
         "runtime": {
@@ -253,6 +254,17 @@
           "lib/netstandard2.0/Ninject.dll": {
             "assemblyVersion": "3.3.4.0",
             "fileVersion": "3.3.4.0"
+          }
+        }
+      },
+      "Ninject.Web.Common/3.3.1": {
+        "dependencies": {
+          "Ninject": "3.3.4"
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ninject.Web.Common.dll": {
+            "assemblyVersion": "3.3.1.0",
+            "fileVersion": "3.3.1.0"
           }
         }
       },
@@ -699,6 +711,13 @@
       "sha512": "sha512-CmbWW97FfJuh4LEOVZM/spqXl4KAulRUjqeMwRd5J9rDMQArmIYaDMU3pyzXXHT062tbF0OPIMwI7tSOtprPfg==",
       "path": "ninject/3.3.4",
       "hashPath": "ninject.3.3.4.nupkg.sha512"
+    },
+    "Ninject.Web.Common/3.3.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-Q7MC/rJ52+EBCuU2sVZ4zoQEzkj15xXwQsDQELzDyn2s2ka0/uQwfZ0SRVMGHR5VCTN4dhomF9/XfmFKQFBJuQ==",
+      "path": "ninject.web.common/3.3.1",
+      "hashPath": "ninject.web.common.3.3.1.nupkg.sha512"
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
       "type": "package",

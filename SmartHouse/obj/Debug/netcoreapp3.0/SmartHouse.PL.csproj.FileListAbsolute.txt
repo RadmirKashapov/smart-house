@@ -18,7 +18,6 @@ C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Micros
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Primitives.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Microsoft.Win32.Registry.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Microsoft.Win32.SystemEvents.dll
-C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Ninject.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.CodeDom.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Collections.Immutable.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.ComponentModel.Annotations.dll
@@ -66,3 +65,19 @@ C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\SmartH
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\obj\Debug\netcoreapp3.0\SmartHouse.PL.csproj.CopyComplete
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\obj\Debug\netcoreapp3.0\SmartHouse.PL.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse\obj\Debug\netcoreapp3.0\SmartHouse.PL.pdb
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\SmartHouse.PL.dll.config
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\SmartHouse.BLL.dll.config
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.Mvc.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.Razor.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.Helpers.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.WebPages.Deployment.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.WebPages.Razor.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.WebPages.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Microsoft.Web.Infrastructure.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Net.Http.Formatting.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.Http.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\System.Web.Http.WebHost.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Newtonsoft.Json.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Ninject.dll
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse\bin\Debug\netcoreapp3.0\Ninject.Web.Common.dll

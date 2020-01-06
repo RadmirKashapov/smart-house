@@ -297,6 +297,18 @@
           "lib/netstandard2.0/Ninject.dll": {}
         }
       },
+      "Ninject.Web.Common/3.3.1": {
+        "type": "package",
+        "dependencies": {
+          "Ninject": "3.3.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/Ninject.Web.Common.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/Ninject.Web.Common.dll": {}
+        }
+      },
       "runtime.native.System.Data.SqlClient.sni/4.7.0": {
         "type": "package",
         "dependencies": {
@@ -1183,6 +1195,21 @@
         "lib/netstandard2.0/Ninject.xml",
         "ninject.3.3.4.nupkg.sha512",
         "ninject.nuspec"
+      ]
+    },
+    "Ninject.Web.Common/3.3.1": {
+      "sha512": "Q7MC/rJ52+EBCuU2sVZ4zoQEzkj15xXwQsDQELzDyn2s2ka0/uQwfZ0SRVMGHR5VCTN4dhomF9/XfmFKQFBJuQ==",
+      "type": "package",
+      "path": "ninject.web.common/3.3.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net45/Ninject.Web.Common.dll",
+        "lib/net45/Ninject.Web.Common.xml",
+        "lib/netstandard2.0/Ninject.Web.Common.dll",
+        "lib/netstandard2.0/Ninject.Web.Common.xml",
+        "ninject.web.common.3.3.1.nupkg.sha512",
+        "ninject.web.common.nuspec"
       ]
     },
     "runtime.native.System.Data.SqlClient.sni/4.7.0": {
@@ -2464,6 +2491,7 @@
     ".NETStandard,Version=v2.1": [
       "AutoMapper >= 9.0.0",
       "Ninject >= 3.3.4",
+      "Ninject.Web.Common >= 3.3.1",
       "SmartHouse.DAL >= 1.0.0"
     ]
   },
@@ -2520,6 +2548,10 @@
           "Ninject": {
             "target": "Package",
             "version": "[3.3.4, )"
+          },
+          "Ninject.Web.Common": {
+            "target": "Package",
+            "version": "[3.3.1, )"
           }
         },
         "imports": [
@@ -2537,7 +2569,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.100\\RuntimeIdentifierGraph.json"
       }
     }
   }

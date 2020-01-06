@@ -11,7 +11,6 @@ namespace SmartHouse.DAL.Repositories
         private HouseRepository houseRepository;
         private RoomRepository roomRepository;
         private SensorRepository sensorRepository;
-
         public EFUnitOfWork(string connectionString)
         {
             db = new ModelContext(connectionString);

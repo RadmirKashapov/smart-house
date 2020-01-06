@@ -1,7 +1,11 @@
 ﻿using AutoMapper;
+using Ninject;
+using Ninject.Modules;
 using SmartHouse.BLL.DTO;
+using SmartHouse.BLL.Infrastructure;
 using SmartHouse.BLL.Interfaces;
 using SmartHouse.PL.Models;
+using SmartHouse.PL.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -13,16 +17,16 @@ namespace SmartHouse.PL.Controllers
     {
         ISmartService smartService;
         List<HouseViewModel> houses;
-        public SmartController(ISmartService serv)
-        {
-            smartService = serv;
-        }
-
         public SmartController()
         {
-            IEnumerable<HouseDTO> houseDtos = smartService.ShowHouses();
-            var mapperHouse = new MapperConfiguration(cfg => cfg.CreateMap<HouseDTO, HouseViewModel>()).CreateMapper();
-            houses = mapperHouse.Map<IEnumerable<HouseDTO>, List<HouseViewModel>>(houseDtos);
+            var connectionString = System.Configuration.ConfigurationManager.
+                ConnectionStrings["ModuleContext"].ConnectionString;
+            NinjectModule smartModule = new SmartModule();
+            NinjectModule serviceModule = new ServiceModule(connectionString);
+            var kernel = new StandardKernel(smartModule, serviceModule);
+            var processor = kernel.Get<ISmartService>();
+
+            smartService = processor;
         }
 
         public void Start()
@@ -34,6 +38,10 @@ namespace SmartHouse.PL.Controllers
         {
             Boolean flag = true;
 
+            IEnumerable<HouseDTO> houseDtos = smartService.ShowHouses();
+            var mapperHouse = new MapperConfiguration(cfg => cfg.CreateMap<HouseDTO, HouseViewModel>()).CreateMapper();
+            houses = mapperHouse.Map<IEnumerable<HouseDTO>, List<HouseViewModel>>(houseDtos);
+           
             ArrayList Options = new ArrayList
             {
                 "Add house",
@@ -99,9 +107,10 @@ namespace SmartHouse.PL.Controllers
                 Console.WriteLine($"{count++}. {option}");
             }
 
-            string str = "a";
+            string str;
             int number;
 
+            str = Console.ReadLine();
             while (!int.TryParse(Convert.ToString(str), out number) && number < 0 && number > Options.Count)
             {
                 str = Console.ReadLine();
@@ -123,10 +132,11 @@ namespace SmartHouse.PL.Controllers
                 Console.WriteLine($"{count++}. {option}");
             }
 
-            string str = "a";
+            string str;
             int number;
 
-            while (!int.TryParse(Convert.ToString(str), out number) && number < 0 && number > count)
+            str = Console.ReadLine();
+            while (int.TryParse(Convert.ToString(str), out number) && number < 0 && number > count)
             {
                 str = Console.ReadLine();
             }

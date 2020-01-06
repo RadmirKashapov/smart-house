@@ -10,3 +10,4 @@ C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\bin\Debug\netstandard2.1\S
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\obj\Debug\netstandard2.1\SmartHouse.BLL.csproj.CopyComplete
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\obj\Debug\netstandard2.1\SmartHouse.BLL.dll
 C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\obj\Debug\netstandard2.1\SmartHouse.BLL.pdb
+C:\Users\mylif\source\repos\SmartHouse\SmartHouse.BLL\bin\Debug\netstandard2.1\SmartHouse.BLL.dll.config

@@ -24,7 +24,6 @@ namespace SmartHouse.BLL.Services
         {
             House house = new House
             {
-                Id = Database.Houses.GetCount() + 1,
                 Name = houseDTO.Name
             };
 
@@ -36,7 +35,6 @@ namespace SmartHouse.BLL.Services
         {
             Room room = new Room
             {
-                Id = Database.Rooms.GetCount() + 1,
                 Name = roomDTO.Name,
                 HouseId = houseId
             };
@@ -67,7 +65,7 @@ namespace SmartHouse.BLL.Services
             if (data == null) 
                 throw new ValidationException("No data", "");
 
-            Database.Sensors.Create(new Sensor { Id = Database.Sensors.GetCount() + 1, HouseId = houseId, RoomId = roomId, Date = DateTime.Now, Data = data.Value });
+            Database.Sensors.Create(new Sensor { HouseId = houseId, RoomId = roomId, Date = DateTime.Now, Data = data.Value });
             Database.Save();
         }
 
