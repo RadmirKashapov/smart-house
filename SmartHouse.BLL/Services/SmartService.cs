@@ -52,11 +52,11 @@ namespace SmartHouse.BLL.Services
             return mapper.Map<IEnumerable<House>, List<HouseDTO>>(Database.Houses.GetAll());
         }
 
-        public IEnumerable<RoomDTO> ShowRoomsInHouse(HouseDTO house)
+        public IEnumerable<RoomDTO> ShowRoomsInHouse(int houseId)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Room, RoomDTO>()).CreateMapper();
             var selectedRooms = from t in Database.Rooms.GetAll()
-                                where t.HouseId == house.Id
+                                where t.HouseId == houseId
                                 select t;
 
             return mapper.Map<IEnumerable<Room>, List<RoomDTO>>(selectedRooms);
@@ -71,7 +71,7 @@ namespace SmartHouse.BLL.Services
             Database.Save();
         }
 
-        public double CalculateAverage(int? houseId, int? roomId, int duration)
+        public double CalculateAverage(int? houseId, int duration, int? roomId = 0)
         {
           //  0 - Day
           //  1- month
@@ -85,6 +85,11 @@ namespace SmartHouse.BLL.Services
             var average = new Average(Database, houseId.Value, roomId.Value, duration);
 
             return average.CalculateAverage(); 
+        }
+
+        public void Dispose()
+        {
+            Database.Dispose();
         }
     }
 }
