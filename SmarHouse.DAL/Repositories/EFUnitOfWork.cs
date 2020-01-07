@@ -1,6 +1,7 @@
 ﻿using SmartHouse.DAL.EF;
 using SmartHouse.DAL.Entities;
 using SmartHouse.DAL.Interfaces;
+using SmartRecord.DAL.Repositories;
 using System;
 
 namespace SmartHouse.DAL.Repositories
@@ -11,6 +12,8 @@ namespace SmartHouse.DAL.Repositories
         private HouseRepository houseRepository;
         private RoomRepository roomRepository;
         private SensorRepository sensorRepository;
+        private RecordRepository recordRepository;
+
         public EFUnitOfWork(string connectionString)
         {
             db = new ModelContext(connectionString);
@@ -43,6 +46,16 @@ namespace SmartHouse.DAL.Repositories
                 if (sensorRepository == null)
                     sensorRepository = new SensorRepository(db);
                 return sensorRepository;
+            }
+        }
+
+        public IRepository<Record> Records
+        {
+            get
+            {
+                if (recordRepository == null)
+                    recordRepository = new RecordRepository(db);
+                return recordRepository;
             }
         }
 

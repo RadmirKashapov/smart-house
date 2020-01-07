@@ -14,11 +14,5 @@ namespace SmartHouse.DAL.Entities
         [Display(Name = "Id")]
         public int RoomId { get; set; }
 
-        [Display(Name = "Date")]
-        public DateTime Date { get; set; }
-
-        [Display(Name = "Value of sensor")]
-        public int Data { get; set; }
-
     }
 }

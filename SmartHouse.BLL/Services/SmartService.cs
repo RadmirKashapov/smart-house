@@ -65,7 +65,11 @@ namespace SmartHouse.BLL.Services
             if (data == null) 
                 throw new ValidationException("No data", "");
 
-            Database.Sensors.Create(new Sensor { HouseId = houseId, RoomId = roomId, Date = DateTime.Now, Data = data.Value });
+            var sensor = from t in Database.Sensors.GetAll()
+                         where t.HouseId == houseId && t.RoomId == roomId
+                         select t;
+
+            Database.Records.Create(new Record { Date = DateTime.Now, Data = data.Value, SensorId = sensor.First().Id });
             Database.Save();
         }
 

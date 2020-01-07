@@ -8,6 +8,7 @@ namespace SmartHouse.DAL.Interfaces
         IRepository<House> Houses { get; }
         IRepository<Room> Rooms { get; }
         IRepository<Sensor> Sensors { get; }
+        IRepository<Record> Records { get; }
         void Save();
     }
 }

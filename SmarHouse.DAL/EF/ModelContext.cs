@@ -9,6 +9,7 @@ namespace SmartHouse.DAL.EF
         public DbSet<House> Houses { get; set; }
         public DbSet<Room> Rooms { get; set; }
         public DbSet<Sensor> Sensors { get; set; }
+        public DbSet<Record> Records { get; set; }
 
         static ModelContext()
         {
@@ -27,7 +28,7 @@ namespace SmartHouse.DAL.EF
         {
             db.Houses.Add(new House { Name = "House 1" });
             db.Rooms.Add(new Room {  Name = "Room 1" });
-            db.Sensors.Add(new Sensor { Date = DateTime.Now , Data = 18});
+            db.Sensors.Add(new Sensor { HouseId = 1 , RoomId = 1});
             db.SaveChanges();
         }
     }

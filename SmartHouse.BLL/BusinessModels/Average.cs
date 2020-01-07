@@ -25,25 +25,36 @@ namespace SmartHouse.BLL.BusinessModels
 
         public double CalculateAverage()
         {
-            IEnumerable<int> selectedSensors;
+            IEnumerable<Sensor> selectedSensors;
+            IEnumerable<int> selectedRecords;
 
             switch (duration)
             {
                 case 0:
                     selectedSensors = from t in Database.Sensors.GetAll()
-                                      where t.HouseId == houseId && t.RoomId == roomId && t.Date.Day == t.Date.Day - 1
+                                      where t.HouseId == houseId && t.RoomId == roomId
+                                      select t;
+                    selectedRecords = from t in Database.Records.GetAll()
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Day == t.Date.Day - 1
                                       select t.Data;
-                    return (double)selectedSensors.Average();
+
+                    return (double)selectedRecords.Average();
                 case 1:
                     selectedSensors = from t in Database.Sensors.GetAll()
-                                      where t.HouseId == houseId && t.RoomId == roomId && t.Date.Day == t.Date.Month - 1
+                                      where t.HouseId == houseId && t.RoomId == roomId
+                                      select t;
+                    selectedRecords = from t in Database.Records.GetAll()
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Month == t.Date.Month - 1
                                       select t.Data;
-                    return (double)selectedSensors.Average();
+                    return (double)selectedRecords.Average();
                 default:
                     selectedSensors = from t in Database.Sensors.GetAll()
-                                      where t.HouseId == houseId && t.RoomId == roomId && t.Date.Day == t.Date.Year - 1
+                                      where t.HouseId == houseId && t.RoomId == roomId
+                                      select t;
+                    selectedRecords = from t in Database.Records.GetAll()
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Year == t.Date.Year - 1
                                       select t.Data;
-                    return (double)selectedSensors.Average();
+                    return (double)selectedRecords.Average();
             }
         }
          
