@@ -4,6 +4,10 @@ using System.Data.Entity;
 
 namespace SmartHouse.DAL.EF
 {
+    /// <summary>
+    /// Класс контекста данных. Используется фреймворк Entity Framework.
+    /// 
+    /// </summary>
     public class ModelContext : DbContext
     {
         public DbSet<House> Houses { get; set; }
@@ -11,6 +15,9 @@ namespace SmartHouse.DAL.EF
         public DbSet<Sensor> Sensors { get; set; }
         public DbSet<Record> Records { get; set; }
 
+        /// <summary>
+        /// Конструктор класса ModelContext, инициализирующий БД
+        /// </summary>
         static ModelContext()
         {
             Database.SetInitializer<ModelContext>(new SensorDbInitializer());
@@ -21,7 +28,6 @@ namespace SmartHouse.DAL.EF
         }
     }
 
-    //public class SensorDbInitializer : DropCreateDatabaseIfModelChanges<ModelContext>
     public class SensorDbInitializer : DropCreateDatabaseAlways<ModelContext>
     {
         protected override void Seed(ModelContext db)

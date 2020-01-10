@@ -4,6 +4,10 @@ using System.Text;
 
 namespace SmartHouse.DAL.Interfaces
 {
+    /// <summary>
+    /// Интерфейс репозиториев IRepository. Определяет контракт для классов репозиториев
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public interface IRepository<T> where T: class
     {
         IEnumerable<T> GetAll();

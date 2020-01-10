@@ -13,14 +13,18 @@ using System.Text;
 
 namespace SmartHouse.BLL.Services
 {
+    /// <summary>
+    /// Класс сервиса, реализующий ISmartService
+    /// </summary>
     public class SmartService : ISmartService
     {
-        IUnitOfWork Database { get; set; }
+        IUnitOfWork Database { get; set; } // Необходим для взаимодействия с БД
 
         public SmartService(IUnitOfWork uow)
         {
             Database = uow;
         }
+
         public void AddItem(HouseDTO houseDTO)
         {
             House house = new House

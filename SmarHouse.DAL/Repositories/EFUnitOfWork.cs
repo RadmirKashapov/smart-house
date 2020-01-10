@@ -6,6 +6,9 @@ using System;
 
 namespace SmartHouse.DAL.Repositories
 {
+    /// <summary>
+    /// Реализация интерфейса IUnitOfWork. Через данный класс происходит взаимодействие с БД
+    /// </summary>
     public class EFUnitOfWork : IUnitOfWork
     {
         private ModelContext db;
@@ -14,6 +17,11 @@ namespace SmartHouse.DAL.Repositories
         private SensorRepository sensorRepository;
         private RecordRepository recordRepository;
 
+        /// <summary>
+        /// Строка подключения к БД в конструкторе класса EFUnitOfWork передается в
+        /// конструктор контекста данных
+        /// </summary>
+        /// <param name="connectionString"></param>
         public EFUnitOfWork(string connectionString)
         {
             db = new ModelContext(connectionString);
