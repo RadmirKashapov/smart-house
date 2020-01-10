@@ -27,7 +27,21 @@ namespace SmartHouse.BLL.Services
                 Name = houseDTO.Name
             };
 
+            Room room = new Room
+            {
+                Name = "Main",
+                HouseId = house.Id
+            };
+
+            Sensor sensor = new Sensor
+            {
+                HouseId = house.Id,
+                RoomId = Database.Rooms.GetCount() + 1
+            };
+
             Database.Houses.Create(house);
+            Database.Rooms.Create(room);
+            Database.Sensors.Create(sensor);
             Database.Save();
         }
 
@@ -39,7 +53,14 @@ namespace SmartHouse.BLL.Services
                 HouseId = houseId
             };
 
+            Sensor sensor = new Sensor
+            {
+                HouseId = houseId,
+                RoomId = Database.Rooms.GetCount() + 1
+            };
+
             Database.Rooms.Create(room);
+            Database.Sensors.Create(sensor);
             Database.Save();
         }
 
@@ -69,7 +90,19 @@ namespace SmartHouse.BLL.Services
                          where t.HouseId == houseId && t.RoomId == roomId
                          select t;
 
-            Database.Records.Create(new Record { Date = DateTime.Now, Data = data.Value, SensorId = sensor.First().Id });
+            if(sensor.Count() == 0)
+            {
+                Sensor sensorNew = new Sensor
+                {
+                    HouseId = houseId,
+                    RoomId = roomId
+                };
+                Database.Sensors.Create(sensorNew);
+                Database.Records.Create(new Record { Data = data.Value, SensorId = Database.Sensors.GetCount() + 1 });
+                Database.Save();
+                return;
+            }
+            Database.Records.Create(new Record { Data = data.Value, SensorId = sensor.First().Id });
             Database.Save();
         }
 
@@ -92,6 +125,23 @@ namespace SmartHouse.BLL.Services
         public void Dispose()
         {
             Database.Dispose();
+        }
+
+        public IEnumerable<RoomDTO> ShowRooms()
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Room, RoomDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Room>, List<RoomDTO>>(Database.Rooms.GetAll());
+        }
+        public IEnumerable<SensorDTO> ShowSensors()
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Sensor, SensorDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Sensor>, List<SensorDTO>>(Database.Sensors.GetAll());
+        }
+
+        public IEnumerable<RecordDTO> ShowRecords()
+        {
+            var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Record, RecordDTO>()).CreateMapper();
+            return mapper.Map<IEnumerable<Record>, List<RecordDTO>>(Database.Records.GetAll());
         }
     }
 }

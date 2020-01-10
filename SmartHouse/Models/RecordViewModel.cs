@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace SmartHouse.BLL.DTO
+namespace SmartHouse.PL.Models
 {
-    public class RecordDTO
+    public class RecordViewModel
     {
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public int Data { get; set; }
         public int SensorId { get; set; }
-
     }
 }

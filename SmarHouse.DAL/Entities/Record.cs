@@ -18,5 +18,11 @@ namespace SmartHouse.DAL.Entities
 
         [Display(Name = "Sensor Id")]
         public int SensorId { get; set; }
+
+
+        public Record()
+        {
+            Date = DateTime.Now;
+        }
     }
 }

@@ -27,33 +27,50 @@ namespace SmartHouse.BLL.BusinessModels
         {
             IEnumerable<Sensor> selectedSensors;
             IEnumerable<int> selectedRecords;
+            DateTime dateTime = DateTime.Now;
+
+            selectedSensors = from t in Database.Sensors.GetAll()
+                              where t.HouseId == houseId && t.RoomId == roomId
+                              select t;
+
+            if (selectedSensors.Count() == 0)
+            {
+                return double.NaN;
+            }
 
             switch (duration)
             {
                 case 0:
-                    selectedSensors = from t in Database.Sensors.GetAll()
-                                      where t.HouseId == houseId && t.RoomId == roomId
-                                      select t;
                     selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Day == t.Date.Day - 1
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Day == DateTime.Now.Day - 1
                                       select t.Data;
+
+                    if (selectedRecords.Count() == 0)
+                    {
+                        return double.NaN;
+                    }
 
                     return (double)selectedRecords.Average();
                 case 1:
-                    selectedSensors = from t in Database.Sensors.GetAll()
-                                      where t.HouseId == houseId && t.RoomId == roomId
-                                      select t;
                     selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Month == t.Date.Month - 1
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Month == DateTime.Now.Month - 1
                                       select t.Data;
+                    if (selectedRecords.Count() == 0)
+                    {
+                        return double.NaN;
+                    }
+
                     return (double)selectedRecords.Average();
                 default:
-                    selectedSensors = from t in Database.Sensors.GetAll()
-                                      where t.HouseId == houseId && t.RoomId == roomId
-                                      select t;
                     selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Year == t.Date.Year - 1
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Year == DateTime.Now.Year - 1
                                       select t.Data;
+
+                    if (selectedRecords.Count() == 0)
+                    {
+                        return double.NaN;
+                    }
+
                     return (double)selectedRecords.Average();
             }
         }

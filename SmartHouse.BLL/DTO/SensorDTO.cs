@@ -7,6 +7,7 @@ namespace SmartHouse.BLL.DTO
     public class SensorDTO
     {
         public int Id { get; set; }
-        public int Data { get; set; }
+        public string HouseId { get; set; }
+        public string RoomId { get; set; }
     }
 }

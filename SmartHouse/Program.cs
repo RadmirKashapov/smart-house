@@ -14,6 +14,7 @@ namespace SmartHouse
         {
             SmartController controller = new SmartController();
             controller.Start();
+            Console.WriteLine("The program has finished working!");
             Console.ReadKey();
         }
     }

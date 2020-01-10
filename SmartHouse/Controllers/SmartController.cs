@@ -47,7 +47,8 @@ namespace SmartHouse.PL.Controllers
                 "Add house",
                 "Add room",
                 "Enter value of temperature",
-                "Calculate the average temperature"
+                "Calculate the average temperature",
+                "Look and edit the data"
             };
 
             while (flag == true)
@@ -68,7 +69,13 @@ namespace SmartHouse.PL.Controllers
                         {
                             Name = house
                         };
+                        try { 
                         smartService.AddItem(houseObject);
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case 2:
                         number = ChooseOption("Back", houses);
@@ -83,7 +90,14 @@ namespace SmartHouse.PL.Controllers
                             Name = room
                         };
 
-                        smartService.AddItem(roomObject, houseId);
+                        try
+                        {
+                            smartService.AddItem(roomObject, houseId);
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
                     case 3:
                         AdditionalMenu(smartService, "EnterValueOfTemperature");
@@ -91,9 +105,26 @@ namespace SmartHouse.PL.Controllers
                     case 4:
                         AdditionalMenu(smartService, "CalculateTheAverageTemperature");
                         break;
+                    case 5:
+                        ArrayList options = new ArrayList
+                        {
+                            "Houses",
+                            "Rooms",
+                            "Sensors",
+                            "Records"
+                        };
+                        number = ChooseOption("Back", options);
+                        displayItems(number);
+                        break;
                 }
             }
         }
+
+        protected void Dispose(bool disposing)
+        {
+            smartService.Dispose();
+        }
+
         private int ChooseOption(string StrParam, ArrayList Options)
         {
             Console.WriteLine("Choose option:");
@@ -102,7 +133,7 @@ namespace SmartHouse.PL.Controllers
 
             Console.WriteLine($"{count++}. {StrParam}");
 
-            foreach (string option in Options)
+            foreach (Object option in Options)
             {
                 Console.WriteLine($"{count++}. {option}");
             }
@@ -111,7 +142,7 @@ namespace SmartHouse.PL.Controllers
             int number;
 
             str = Console.ReadLine();
-            while (!int.TryParse(Convert.ToString(str), out number) && number < 0 && number > Options.Count)
+            while (!int.TryParse(Convert.ToString(str), out number) && number < 0 && number > Options.Count && IsDigit(str))
             {
                 str = Console.ReadLine();
             }
@@ -119,7 +150,7 @@ namespace SmartHouse.PL.Controllers
             return number;
         }
 
-        private int ChooseOption(string StrParam, IEnumerable Options)
+        private int ChooseOption(string StrParam, List<HouseViewModel> Options)
         {
             Console.WriteLine("Choose option:");
 
@@ -127,16 +158,41 @@ namespace SmartHouse.PL.Controllers
 
             Console.WriteLine($"{count++}. {StrParam}");
 
-            foreach (string option in Options)
+            foreach (HouseViewModel option in Options)
             {
-                Console.WriteLine($"{count++}. {option}");
+                Console.WriteLine($"{count++}. {option.Name}");
             }
 
             string str;
             int number;
 
             str = Console.ReadLine();
-            while (int.TryParse(Convert.ToString(str), out number) && number < 0 && number > count)
+            while (int.TryParse(Convert.ToString(str), out number) && number < 0 && number > count && IsDigit(str))
+            {
+                str = Console.ReadLine();
+            }
+
+            return number;
+        }
+
+        private int ChooseOption(string StrParam, List<RoomViewModel> Options)
+        {
+            Console.WriteLine("Choose option:");
+
+            int count = 0;
+
+            Console.WriteLine($"{count++}. {StrParam}");
+
+            foreach (RoomViewModel option in Options)
+            {
+                Console.WriteLine($"{count++}. {option.Name}");
+            }
+
+            string str;
+            int number;
+
+            str = Console.ReadLine();
+            while (int.TryParse(Convert.ToString(str), out number) && number < 0 && number > count && IsDigit(str))
             {
                 str = Console.ReadLine();
             }
@@ -187,7 +243,14 @@ namespace SmartHouse.PL.Controllers
                         {
                             data = Console.ReadLine();
                         }
-                        smartService.EnterValueOfTemperature(Convert.ToInt32(data), house);
+                        try
+                        {
+                            smartService.EnterValueOfTemperature(Convert.ToInt32(data), house);
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
 
                     case "In room":
@@ -208,7 +271,14 @@ namespace SmartHouse.PL.Controllers
                         {
                             data = Console.ReadLine();
                         }
-                        smartService.EnterValueOfTemperature(house, room, Convert.ToInt32(data));
+                        try
+                        {
+                            smartService.EnterValueOfTemperature(house, room, Convert.ToInt32(data));
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
 
                 }
@@ -234,8 +304,14 @@ namespace SmartHouse.PL.Controllers
                         numberDuration = ChooseOption("Back", Durations);
                         if (numberDuration == 0) return;
                         duration = numberDuration - 1;
-
-                        Console.WriteLine($"Average for {duration} in {house} is {smartService.CalculateAverage(house, duration, 0)}");
+                        try
+                        {
+                            Console.WriteLine($"Average for {duration} in {house} is {smartService.CalculateAverage(house, duration, 0)}");
+                        }
+                        catch(ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
 
                     case "In room":
@@ -243,8 +319,9 @@ namespace SmartHouse.PL.Controllers
                         number = ChooseOption("Back", houses);
                         if (number == 0) return;
                         house = houses[number - 1].Id;
-
+                        
                         var RoomsDtos = smartService.ShowRoomsInHouse(house);
+                        
                         var mapperRoom = new MapperConfiguration(cfg => cfg.CreateMap<RoomDTO, RoomViewModel>()).CreateMapper();
                         var rooms = mapperRoom.Map<IEnumerable<RoomDTO>, List<RoomViewModel>>(RoomsDtos);
 
@@ -256,7 +333,13 @@ namespace SmartHouse.PL.Controllers
                         if (numberDuration == 0) return;
                         duration = numberDuration - 1;
 
+                        try { 
                         Console.WriteLine($"Average for {duration} in {house} in {room} is {smartService.CalculateAverage(house, duration, room)}");
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                        }
                         break;
 
                 }
@@ -276,9 +359,83 @@ namespace SmartHouse.PL.Controllers
             return false;
         }
 
-        protected void Dispose(bool disposing)
+        public void displayItems(int number)
         {
-            smartService.Dispose();
+            string s;
+            IEnumerable coll;
+            switch (number)
+            {
+                case 1:
+                    coll = houses;
+                    s = string.Format("{0, 5} | {1, 10}", "Id", "Name");
+                    Console.WriteLine(s);
+                    for(int i = 0; i<s.Length; i++)
+                    {
+                        Console.Write("-=-");
+                    }
+                    Console.WriteLine("");
+                    foreach (HouseViewModel obj in coll)
+                    {
+                        s = string.Format("{0, 5} | {1, 10}", obj.Id, obj.Name);
+                        Console.WriteLine(s);
+                    }
+                    break;
+                case 2:
+                    var RoomsDtos = smartService.ShowRooms();
+                    var mapperRoom = new MapperConfiguration(cfg => cfg.CreateMap<RoomDTO, RoomViewModel>()).CreateMapper();
+                    coll = mapperRoom.Map<IEnumerable<RoomDTO>, List<RoomViewModel>>(RoomsDtos);
+                    
+                    s = string.Format("{0, 5} | {1, 10}  | {2, 10}", "Id", "Name", "House Id");
+                    Console.WriteLine(s);
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        Console.Write("-=-");
+                    }
+                    Console.WriteLine("");
+                    foreach (RoomViewModel obj in coll)
+                    {
+                        s = string.Format("{0, 5} | {1, 10}  | {2, 10}", obj.Id, obj.Name, obj.HouseId);
+                        Console.WriteLine(s);
+                    }
+                    break;
+                case 3:
+                    var SensorsDtos = smartService.ShowSensors();
+                    var mapperSensor = new MapperConfiguration(cfg => cfg.CreateMap<SensorDTO, SensorViewModel>()).CreateMapper();
+                    coll = mapperSensor.Map<IEnumerable<SensorDTO>, List<SensorViewModel>>(SensorsDtos);
+
+                    s = string.Format("{0, 5} | {1, 10}  | {2, 10}", "Id", "House Id", "Room Id");
+                    Console.WriteLine(s);
+                    for (int i = 0; i < s.Length; i++)
+                    {
+                        Console.Write("-=-");
+                    }
+                    Console.WriteLine("");
+                    foreach (SensorViewModel obj in coll)
+                    {
+                        s = string.Format("{0, 5} | {1, 10}  | {2, 10}", obj.Id, obj.HouseId, obj.RoomId);
+                        Console.WriteLine(s);
+                    }
+                    break;
+                case 4:
+                    var RecordsDtos = smartService.ShowRecords();
+                    var mapperRecord = new MapperConfiguration(cfg => cfg.CreateMap<RecordDTO, RecordViewModel>()).CreateMapper();
+                    coll = mapperRecord.Map<IEnumerable<RecordDTO>, List<RecordViewModel>>(RecordsDtos);
+
+                    s = string.Format("{0, 5} | {1, 20}  | {2, 10}  | {3, 10}", "Id", "Date", "Data", "Sensor Id");
+                    Console.WriteLine(s);
+                    for (int i = 0; i < s.Length - 20; i++)
+                    {
+                        Console.Write("-=-");
+                    }
+                    Console.WriteLine("");
+                    foreach (RecordViewModel obj in coll)
+                    {
+                        s = string.Format("{0, 5} | {1, 20}  | {2, 10}  | {3, 10}", obj.Id, obj.Date, obj.Data, obj.SensorId);
+                        Console.WriteLine(s);
+                    }
+                    break;
+            }
         }
+
     }
 }

@@ -8,5 +8,6 @@ namespace SmartHouse.BLL.DTO
     {
         public int Id { get; set; }
         public string Name { get; set; }
+        public string HouseId { get; set; }
     }
 }
