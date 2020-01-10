@@ -1,5 +1,6 @@
 ﻿using SmartHouse.BLL.DTO;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,6 +15,8 @@ namespace SmartHouse.BLL.Interfaces
         IEnumerable<RoomDTO> ShowRooms();
         IEnumerable<SensorDTO> ShowSensors();
         IEnumerable<RecordDTO> ShowRecords();
+        void Update(int id, string str, string name = "Undefined", int? data = null, DateTime dateTime = default(DateTime));
+        void Delete(int id, string str);
         void EnterValueOfTemperature(int? data, int houseId = 0, int roomId = 0);
         double CalculateAverage(int? houseId, int duration, int? roomId);
         void Dispose();

@@ -17,6 +17,7 @@ namespace SmartHouse.PL.Controllers
     {
         ISmartService smartService;
         List<HouseViewModel> houses;
+
         public SmartController()
         {
             var connectionString = System.Configuration.ConfigurationManager.
@@ -37,11 +38,7 @@ namespace SmartHouse.PL.Controllers
         public void displayMenu()
         {
             Boolean flag = true;
-
-            IEnumerable<HouseDTO> houseDtos = smartService.ShowHouses();
-            var mapperHouse = new MapperConfiguration(cfg => cfg.CreateMap<HouseDTO, HouseViewModel>()).CreateMapper();
-            houses = mapperHouse.Map<IEnumerable<HouseDTO>, List<HouseViewModel>>(houseDtos);
-           
+            
             ArrayList Options = new ArrayList
             {
                 "Add house",
@@ -78,6 +75,7 @@ namespace SmartHouse.PL.Controllers
                         }
                         break;
                     case 2:
+                        houses = GetHouseList();
                         number = ChooseOption("Back", houses);
                         if (number == 0) return;
                         int houseId = houses[number - 1].Id;
@@ -233,7 +231,7 @@ namespace SmartHouse.PL.Controllers
                 switch (myStr)
                 {
                     case "In house":
-
+                        houses = GetHouseList();
                         number = ChooseOption("Back", houses);
                         if (number == 0) return;
                         house = houses[number - 1].Id;
@@ -254,7 +252,7 @@ namespace SmartHouse.PL.Controllers
                         break;
 
                     case "In room":
-
+                        houses = GetHouseList();
                         number = ChooseOption("Back", houses);
                         if (number == 0) return;
                         house = houses[number - 1].Id;
@@ -284,7 +282,7 @@ namespace SmartHouse.PL.Controllers
                 }
             }
 
-            void CalculateAverageMenu(ISmartService smartService, string myStr)
+        void CalculateAverageMenu(ISmartService smartService, string myStr)
             {
                 int number;
                 int numberDuration;
@@ -296,7 +294,7 @@ namespace SmartHouse.PL.Controllers
                 switch (myStr)
                 {
                     case "In house":
-
+                        houses = GetHouseList();
                         number = ChooseOption("Back", houses);
                         if (number == 0) return;
                         house = houses[number - 1].Id;
@@ -315,7 +313,7 @@ namespace SmartHouse.PL.Controllers
                         break;
 
                     case "In room":
-
+                        houses = GetHouseList();
                         number = ChooseOption("Back", houses);
                         if (number == 0) return;
                         house = houses[number - 1].Id;
@@ -359,14 +357,23 @@ namespace SmartHouse.PL.Controllers
             return false;
         }
 
-        public void displayItems(int number)
+        private void displayItems(int number)
         {
             string s;
             IEnumerable coll;
+            int index;
+            int id;
+
+            ArrayList Options = new ArrayList
+            {
+                "Edit",
+                "Delete"
+            };
+
             switch (number)
             {
-                case 1:
-                    coll = houses;
+                case 1: 
+                    coll = GetHouseList();
                     s = string.Format("{0, 5} | {1, 10}", "Id", "Name");
                     Console.WriteLine(s);
                     for(int i = 0; i<s.Length; i++)
@@ -379,23 +386,123 @@ namespace SmartHouse.PL.Controllers
                         s = string.Format("{0, 5} | {1, 10}", obj.Id, obj.Name);
                         Console.WriteLine(s);
                     }
+                    index = ChooseOption("Back", Options);
+                    if (index == 0) return;
+                    if (index == 1)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach (HouseViewModel obj in coll)
+                            if (obj.Id == id)
+                            {
+                                smartService.Update(id, "House");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
+                    }
+                    if (index == 2)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach (HouseViewModel obj in coll)
+                            if (obj.Id == id)
+                            {
+                                smartService.Delete(id, "House");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
+                    }
                     break;
                 case 2:
                     var RoomsDtos = smartService.ShowRooms();
                     var mapperRoom = new MapperConfiguration(cfg => cfg.CreateMap<RoomDTO, RoomViewModel>()).CreateMapper();
                     coll = mapperRoom.Map<IEnumerable<RoomDTO>, List<RoomViewModel>>(RoomsDtos);
                     
-                    s = string.Format("{0, 5} | {1, 10}  | {2, 10}", "Id", "Name", "House Id");
+                    s = string.Format("{0, 5} | {1, 30}  | {2, 10}", "Id", "Name", "House Id");
                     Console.WriteLine(s);
-                    for (int i = 0; i < s.Length; i++)
+                    for (int i = 0; i < s.Length - 30; i++)
                     {
                         Console.Write("-=-");
                     }
                     Console.WriteLine("");
                     foreach (RoomViewModel obj in coll)
                     {
-                        s = string.Format("{0, 5} | {1, 10}  | {2, 10}", obj.Id, obj.Name, obj.HouseId);
+                        s = string.Format("{0, 5} | {1, 30}  | {2, 10}", obj.Id, obj.Name, obj.HouseId);
                         Console.WriteLine(s);
+                    }
+                    index = ChooseOption("Back", Options);
+                    if (index == 0) return;
+                    if (index == 1)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach (RoomViewModel obj in coll)
+                            if (obj.Id == id)
+                            {
+                                smartService.Update(id, "Room");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
+                    }
+                    if (index == 2)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach (RoomViewModel obj in coll)
+                            if (obj.Id == id)
+                            {
+                                smartService.Delete(id, "Room");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
                     }
                     break;
                 case 3:
@@ -415,6 +522,36 @@ namespace SmartHouse.PL.Controllers
                         s = string.Format("{0, 5} | {1, 10}  | {2, 10}", obj.Id, obj.HouseId, obj.RoomId);
                         Console.WriteLine(s);
                     }
+                    index = ChooseOption("Back", Options);
+                    if (index == 0) return;
+                    if (index == 1)
+                    {
+                        Console.WriteLine("Editing is not available");
+                    }
+                    if (index == 2)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach (SensorViewModel obj in coll)
+                            if (obj.Id == id)
+                            {
+                                smartService.Delete(id, "Sensor");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
+                    }
                     break;
                 case 4:
                     var RecordsDtos = smartService.ShowRecords();
@@ -433,8 +570,65 @@ namespace SmartHouse.PL.Controllers
                         s = string.Format("{0, 5} | {1, 20}  | {2, 10}  | {3, 10}", obj.Id, obj.Date, obj.Data, obj.SensorId);
                         Console.WriteLine(s);
                     }
+                    index = ChooseOption("Back", Options);
+                    if (index == 0) return;
+                    if (index == 1)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch(ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach(RecordViewModel obj in coll)
+                            if(obj.Id == id)
+                            {
+                                smartService.Update(id, "Record");
+                                break;
+                            } else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
+                    }
+                    if (index == 2)
+                    {
+                        Console.WriteLine("Enter id");
+                        try
+                        {
+                            id = Convert.ToInt32(Console.ReadLine());
+                        }
+                        catch (ValidationException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            return;
+                        }
+                        foreach (RecordViewModel obj in coll)
+                            if (obj.Id == id)
+                            {
+                                smartService.Delete(id, "Record");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Id not found");
+                                return;
+                            }
+                    }
                     break;
             }
+        }
+
+        private List<HouseViewModel> GetHouseList()
+        {
+            IEnumerable<HouseDTO> houseDtos = smartService.ShowHouses();
+            var mapperHouse = new MapperConfiguration(cfg => cfg.CreateMap<HouseDTO, HouseViewModel>()).CreateMapper();
+            houses = mapperHouse.Map<IEnumerable<HouseDTO>, List<HouseViewModel>>(houseDtos);
+            return houses;
         }
 
     }

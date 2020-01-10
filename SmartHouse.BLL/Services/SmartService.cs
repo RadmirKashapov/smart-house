@@ -6,6 +6,7 @@ using SmartHouse.BLL.Interfaces;
 using SmartHouse.DAL.Entities;
 using SmartHouse.DAL.Interfaces;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,7 +30,7 @@ namespace SmartHouse.BLL.Services
 
             Room room = new Room
             {
-                Name = "Main",
+                Name = $"Main room of house '{houseDTO.Name}'",
                 HouseId = house.Id
             };
 
@@ -83,14 +84,14 @@ namespace SmartHouse.BLL.Services
 
         public void EnterValueOfTemperature(int? data, int houseId = 0, int roomId = 0)
         {
-            if (data == null) 
+            if (data == null)
                 throw new ValidationException("No data", "");
 
             var sensor = from t in Database.Sensors.GetAll()
                          where t.HouseId == houseId && t.RoomId == roomId
                          select t;
 
-            if(sensor.Count() == 0)
+            if (sensor.Count() == 0)
             {
                 Sensor sensorNew = new Sensor
                 {
@@ -108,9 +109,9 @@ namespace SmartHouse.BLL.Services
 
         public double CalculateAverage(int? houseId, int duration, int? roomId = 0)
         {
-          //  0 - Day
-          //  1- month
-          //  2- year
+            //  0 - Day
+            //  1- month
+            //  2- year
             if (houseId == null)
                 throw new ValidationException("Error: Incorrect house id", "");
 
@@ -119,7 +120,7 @@ namespace SmartHouse.BLL.Services
 
             var average = new Average(Database, houseId.Value, roomId.Value, duration);
 
-            return average.CalculateAverage(); 
+            return average.CalculateAverage();
         }
 
         public void Dispose()
@@ -142,6 +143,72 @@ namespace SmartHouse.BLL.Services
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Record, RecordDTO>()).CreateMapper();
             return mapper.Map<IEnumerable<Record>, List<RecordDTO>>(Database.Records.GetAll());
+        }
+
+        public void Update(int id, string str, string name = "Undefined", int? data = null, DateTime dateTime = default(DateTime))
+        {
+            switch (str)
+            {
+                case "House":
+                    House house = Database.Houses.Get(id);
+                    if (name != "Undefined")
+                    {
+                        house.Name = name;
+                    }
+                    Database.Houses.Update(house);
+                    Database.Save();
+                    break;
+                case "Room":
+                    Room room = Database.Rooms.Get(id);
+                    if (name != "Undefined")
+                    {
+                        room.Name = name;
+                    }
+                    Database.Rooms.Update(room);
+                    Database.Save();
+                    break;
+                case "Sensor":
+                    Sensor sensor = Database.Sensors.Get(id);
+                    Database.Sensors.Update(sensor);
+                    Database.Save();
+                    break;
+                case "Record":
+                    Record record = Database.Records.Get(id);
+                    if (record.Date != dateTime)
+                    {
+                        record.Date = dateTime;
+                    }
+                    if (data != null)
+                    {
+                        record.Data = data.Value;
+                    }
+                    Database.Records.Update(record);
+                    Database.Save();
+                    break;
+            }
+        }
+
+        public void Delete(int id, string str)
+        {
+            switch (str)
+            {
+                case "House":
+                    Database.Houses.Delete(id);
+                    Database.Save();
+                    break;
+                case "Room":
+                    Database.Rooms.Delete(id);
+                    Database.Save();
+                    break;
+                case "Sensor":
+                    Database.Sensors.Delete(id);
+                    Database.Save();
+                    break;
+                case "Record":
+                    Database.Records.Delete(id);
+                    Database.Save();
+                    break;
+            }
         }
     }
 }
