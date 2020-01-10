@@ -145,7 +145,7 @@ namespace SmartHouse.BLL.Services
             return mapper.Map<IEnumerable<Record>, List<RecordDTO>>(Database.Records.GetAll());
         }
 
-        public void Update(int id, string str, string name = "Undefined", int? data = null, DateTime dateTime = default(DateTime))
+        public void Update(int id, string str, string name = "Undefined", int? data = null, DateTime? dateTime = null)
         {
             switch (str)
             {
@@ -174,9 +174,9 @@ namespace SmartHouse.BLL.Services
                     break;
                 case "Record":
                     Record record = Database.Records.Get(id);
-                    if (record.Date != dateTime)
+                    if (dateTime != null)
                     {
-                        record.Date = dateTime;
+                        record.Date = dateTime.Value;
                     }
                     if (data != null)
                     {

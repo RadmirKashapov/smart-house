@@ -360,9 +360,11 @@ namespace SmartHouse.PL.Controllers
         private void displayItems(int number)
         {
             string s;
+            string Name;
             IEnumerable coll;
             int index;
             int id;
+            string opt;
 
             ArrayList Options = new ArrayList
             {
@@ -403,7 +405,9 @@ namespace SmartHouse.PL.Controllers
                         foreach (HouseViewModel obj in coll)
                             if (obj.Id == id)
                             {
-                                smartService.Update(id, "House");
+                                Console.WriteLine("Enter new name of house");
+                                Name = Console.ReadLine();
+                                smartService.Update(id, "House", Name);
                                 break;
                             }
                             else
@@ -471,7 +475,9 @@ namespace SmartHouse.PL.Controllers
                         foreach (RoomViewModel obj in coll)
                             if (obj.Id == id)
                             {
-                                smartService.Update(id, "Room");
+                                Console.WriteLine("Enter new name of room");
+                                Name = Console.ReadLine();
+                                smartService.Update(id, "Room", Name);
                                 break;
                             }
                             else
@@ -587,7 +593,59 @@ namespace SmartHouse.PL.Controllers
                         foreach(RecordViewModel obj in coll)
                             if(obj.Id == id)
                             {
-                                smartService.Update(id, "Record");
+                                Console.WriteLine("Select:");
+                                Console.WriteLine("0. Back to menu");
+                                Console.WriteLine("1. Edit date");
+                                Console.WriteLine("2. Edit data");
+
+                                opt = Console.ReadLine();
+
+                                if (IsDigit(opt))
+                                {
+                                    if (Convert.ToInt32(opt) == 0)
+                                    {
+                                        return;
+                                    } 
+                                    else 
+                                    if (Convert.ToInt32(opt) == 1)
+                                    {
+                                        Console.WriteLine("Enter new date");
+                                        try
+                                        {
+                                            DateTime date = Convert.ToDateTime(Console.ReadLine());
+                                            smartService.Update(id, "Record", "Undefined", null, date);
+                                        }
+                                        catch (ValidationException ex)
+                                        {
+                                            Console.WriteLine(ex.Message);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    if (Convert.ToInt32(opt) == 2)
+                                    {
+                                        Console.WriteLine("Enter new value");
+                                        try
+                                        {
+                                            int data = Convert.ToInt32(Console.ReadLine());
+                                            smartService.Update(id, "Record", "Undefined", data);
+                                        }
+                                        catch (ValidationException ex)
+                                        {
+                                            Console.WriteLine(ex.Message);
+                                            return;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Error");
+                                        return;
+                                    }
+                                } else
+                                {
+                                    Console.WriteLine("Error");
+                                    return;
+                                }
                                 break;
                             } else
                             {

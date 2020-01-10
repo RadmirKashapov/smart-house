@@ -15,7 +15,7 @@ namespace SmartHouse.BLL.Interfaces
         IEnumerable<RoomDTO> ShowRooms();
         IEnumerable<SensorDTO> ShowSensors();
         IEnumerable<RecordDTO> ShowRecords();
-        void Update(int id, string str, string name = "Undefined", int? data = null, DateTime dateTime = default(DateTime));
+        void Update(int id, string str, string name = "Undefined", int? data = null, DateTime? dateTime = null);
         void Delete(int id, string str);
         void EnterValueOfTemperature(int? data, int houseId = 0, int roomId = 0);
         double CalculateAverage(int? houseId, int duration, int? roomId);
