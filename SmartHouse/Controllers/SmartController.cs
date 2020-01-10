@@ -290,6 +290,7 @@ namespace SmartHouse.PL.Controllers
                 int house;
                 int room;
                 int duration;
+                string strDur = "";
 
                 switch (myStr)
                 {
@@ -302,9 +303,16 @@ namespace SmartHouse.PL.Controllers
                         numberDuration = ChooseOption("Back", Durations);
                         if (numberDuration == 0) return;
                         duration = numberDuration - 1;
+                        if (duration == 0)
+                            strDur = "day";
+                        else
+                            if (duration == 1)
+                                strDur = "month";
+                        else
+                            strDur = "year";
                         try
                         {
-                            Console.WriteLine($"Average for {duration} in {house} is {smartService.CalculateAverage(house, duration, 0)}");
+                            Console.WriteLine($"Average for {strDur} in House Id {house} is {smartService.CalculateAverage(house, duration, 0)}");
                         }
                         catch(ValidationException ex)
                         {
@@ -331,8 +339,16 @@ namespace SmartHouse.PL.Controllers
                         if (numberDuration == 0) return;
                         duration = numberDuration - 1;
 
+                        if (duration == 0)
+                            strDur = "day";
+                        else
+                            if (duration == 1)
+                            strDur = "month";
+                        else
+                            strDur = "year";
+
                         try { 
-                        Console.WriteLine($"Average for {duration} in {house} in {room} is {smartService.CalculateAverage(house, duration, room)}");
+                        Console.WriteLine($"Average for {strDur} in House Id {house} in Room ID {room} is {smartService.CalculateAverage(house, duration, room)}");
                         }
                         catch (ValidationException ex)
                         {

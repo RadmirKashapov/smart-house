@@ -42,7 +42,7 @@ namespace SmartHouse.BLL.BusinessModels
             {
                 case 0:
                     selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Day == DateTime.Now.Day - 1
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Day >= DateTime.Today.Day - 1
                                       select t.Data;
 
                     if (selectedRecords.Count() == 0)
@@ -53,7 +53,7 @@ namespace SmartHouse.BLL.BusinessModels
                     return (double)selectedRecords.Average();
                 case 1:
                     selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Month == DateTime.Now.Month - 1
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Month >= DateTime.Today.Month - 1
                                       select t.Data;
                     if (selectedRecords.Count() == 0)
                     {
@@ -63,7 +63,7 @@ namespace SmartHouse.BLL.BusinessModels
                     return (double)selectedRecords.Average();
                 default:
                     selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Year == DateTime.Now.Year - 1
+                                      where t.SensorId == selectedSensors.First().Id && t.Date.Year >= DateTime.Today.Year - 1
                                       select t.Data;
 
                     if (selectedRecords.Count() == 0)

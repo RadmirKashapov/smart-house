@@ -28,7 +28,13 @@ namespace SmartHouse.DAL.EF
         {
             db.Houses.Add(new House { Name = "House 1" });
             db.Rooms.Add(new Room {  Name = "Room 1" });
-            db.Sensors.Add(new Sensor { HouseId = 1 , RoomId = 1});
+            db.Sensors.Add(new Sensor { HouseId = 1 , RoomId = 0});
+            db.Records.Add(new Record { Data = 13, Date = DateTime.Now.AddDays(-1), SensorId = 1 });
+            db.Records.Add(new Record { Data = 19, Date = DateTime.Now.AddDays(-1).AddHours(-1), SensorId = 1 });
+            db.Records.Add(new Record { Data = 13, Date = DateTime.Now.AddDays(-365), SensorId = 1 });
+            db.Records.Add(new Record { Data = 19, Date = DateTime.Now.AddDays(-365).AddHours(-1), SensorId = 1 });
+            db.Records.Add(new Record { Data = 13, Date = DateTime.Now.AddDays(-30), SensorId = 1 });
+            db.Records.Add(new Record { Data = 19, Date = DateTime.Now.AddDays(-30).AddHours(-1), SensorId = 1 });
             db.SaveChanges();
         }
     }
