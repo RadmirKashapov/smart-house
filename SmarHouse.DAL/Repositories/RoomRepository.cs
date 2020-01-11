@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SmartHouse.DAL.Repositories
 {
-    public class RoomRepository : IRepository<Room>
+    public class RoomRepository : IRoomRepository<Room>
     {
         private ModelContext db;
         public int Count { get; set; } = 0;
@@ -56,6 +56,14 @@ namespace SmartHouse.DAL.Repositories
         public int GetCount()
         {
             return Count;
+        }
+
+        public IEnumerable<Room> GetSelectedRooms(int houseId)
+        {
+            var selectedRooms = from t in GetAll()
+                                where t.HouseId == houseId
+                                select t;
+            return selectedRooms;
         }
     }
 }

@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SmartHouse.DAL.Repositories
 {
-    public class HouseRepository : IRepository<House>
+    public class HouseRepository : IHouseRepository<House>
     {
         private ModelContext db;
         public int Count { get; set; } = 0;

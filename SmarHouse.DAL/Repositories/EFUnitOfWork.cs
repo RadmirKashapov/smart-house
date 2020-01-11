@@ -27,7 +27,7 @@ namespace SmartHouse.DAL.Repositories
             db = new ModelContext(connectionString);
         }
 
-        public IRepository<House> Houses
+        public IHouseRepository<House> Houses
         {
             get
             {
@@ -37,7 +37,7 @@ namespace SmartHouse.DAL.Repositories
             }
         }
 
-        public IRepository<Room> Rooms
+        public IRoomRepository<Room> Rooms
         {
             get
             {
@@ -47,7 +47,7 @@ namespace SmartHouse.DAL.Repositories
             }
         }
 
-        public IRepository<Sensor> Sensors
+        public ISensorRepository<Sensor> Sensors
         {
             get
             {
@@ -57,7 +57,7 @@ namespace SmartHouse.DAL.Repositories
             }
         }
 
-        public IRepository<Record> Records
+        public IRecordRepository<Record> Records
         {
             get
             {

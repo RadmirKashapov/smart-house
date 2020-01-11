@@ -79,9 +79,7 @@ namespace SmartHouse.BLL.Services
         public IEnumerable<RoomDTO> ShowRoomsInHouse(int houseId)
         {
             var mapper = new MapperConfiguration(cfg => cfg.CreateMap<Room, RoomDTO>()).CreateMapper();
-            var selectedRooms = from t in Database.Rooms.GetAll()
-                                where t.HouseId == houseId
-                                select t;
+            var selectedRooms = Database.Rooms.GetSelectedRooms(houseId);
 
             return mapper.Map<IEnumerable<Room>, List<RoomDTO>>(selectedRooms);
         }
@@ -91,9 +89,7 @@ namespace SmartHouse.BLL.Services
             if (data == null)
                 throw new ValidationException("No data", "");
 
-            var sensor = from t in Database.Sensors.GetAll()
-                         where t.HouseId == houseId && t.RoomId == roomId
-                         select t;
+            var sensor = Database.Sensors.GetSelectedSensors(houseId, roomId);
 
             if (sensor.Count() == 0)
             {

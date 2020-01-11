@@ -381,6 +381,7 @@ namespace SmartHouse.PL.Controllers
             int index;
             int id;
             string opt;
+            bool flag = false;
 
             ArrayList Options = new ArrayList
             {
@@ -392,6 +393,7 @@ namespace SmartHouse.PL.Controllers
             {
                 case 1: 
                     coll = GetHouseList();
+ 
                     s = string.Format("{0, 5} | {1, 10}", "Id", "Name");
                     Console.WriteLine(s);
                     for(int i = 0; i<s.Length; i++)
@@ -424,13 +426,13 @@ namespace SmartHouse.PL.Controllers
                                 Console.WriteLine("Enter new name of house");
                                 Name = Console.ReadLine();
                                 smartService.Update(id, "House", Name);
+                                flag = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                        if (flag == false)
+                        {
+                            Console.WriteLine("Id not found");
+                        }
                     }
                     if (index == 2)
                     {
@@ -448,13 +450,13 @@ namespace SmartHouse.PL.Controllers
                             if (obj.Id == id)
                             {
                                 smartService.Delete(id, "House");
+                                flag = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                        if (flag == false)
+                        {
+                            Console.WriteLine("Id not found");
+                        }
                     }
                     break;
                 case 2:
@@ -494,13 +496,13 @@ namespace SmartHouse.PL.Controllers
                                 Console.WriteLine("Enter new name of room");
                                 Name = Console.ReadLine();
                                 smartService.Update(id, "Room", Name);
+                                flag = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                        if (flag == false)
+                        {
+                            Console.WriteLine("Id not found");
+                        }
                     }
                     if (index == 2)
                     {
@@ -517,14 +519,14 @@ namespace SmartHouse.PL.Controllers
                         foreach (RoomViewModel obj in coll)
                             if (obj.Id == id)
                             {
-                                smartService.Delete(id, "Room");
+                                smartService.Delete(id, "Room"); 
+                                flag = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                        if (flag == false)
+                        {
+                            Console.WriteLine("Id not found");
+                        }
                     }
                     break;
                 case 3:
@@ -566,13 +568,13 @@ namespace SmartHouse.PL.Controllers
                             if (obj.Id == id)
                             {
                                 smartService.Delete(id, "Sensor");
+                                flag = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                        if (flag == false)
+                        {
+                            Console.WriteLine("Id not found");
+                        }
                     }
                     break;
                 case 4:
@@ -630,6 +632,7 @@ namespace SmartHouse.PL.Controllers
                                         {
                                             DateTime date = Convert.ToDateTime(Console.ReadLine());
                                             smartService.Update(id, "Record", "Undefined", null, date);
+                                            flag = true;
                                         }
                                         catch (ValidationException ex)
                                         {
@@ -645,6 +648,7 @@ namespace SmartHouse.PL.Controllers
                                         {
                                             int data = Convert.ToInt32(Console.ReadLine());
                                             smartService.Update(id, "Record", "Undefined", data);
+                                            flag = true;
                                         }
                                         catch (ValidationException ex)
                                         {
@@ -663,11 +667,9 @@ namespace SmartHouse.PL.Controllers
                                     return;
                                 }
                                 break;
-                            } else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                            } 
+                        if(flag == false)
+                            Console.WriteLine("Id not found");
                     }
                     if (index == 2)
                     {
@@ -685,13 +687,13 @@ namespace SmartHouse.PL.Controllers
                             if (obj.Id == id)
                             {
                                 smartService.Delete(id, "Record");
+                                flag = true;
                                 break;
                             }
-                            else
-                            {
-                                Console.WriteLine("Id not found");
-                                return;
-                            }
+                        if (flag == false)
+                        {
+                            Console.WriteLine("Id not found");
+                        }
                     }
                     break;
             }

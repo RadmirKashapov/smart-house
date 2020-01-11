@@ -8,7 +8,7 @@ using System.Text;
 
 namespace SmartRecord.DAL.Repositories
 {
-    public class RecordRepository : IRepository<Record>
+    public class RecordRepository : IRecordRepository<Record>
     {
         private ModelContext db;
         public int Count { get; set; } = 0;
@@ -57,6 +57,33 @@ namespace SmartRecord.DAL.Repositories
         public int GetCount()
         {
             return Count;
+        }
+
+        public IEnumerable<int> GetSelectedRecordsPerDay(int sensorId)
+        {
+            var x  = from t in GetAll()
+                     where t.SensorId == sensorId && t.Date.Day >= DateTime.Today.Day - 1
+                     select t.Data;
+
+            return x;
+        }
+
+        public IEnumerable<int> GetSelectedRecordsPerMonth(int sensorId)
+        {
+            var x = from t in GetAll()
+                    where t.SensorId == sensorId && t.Date.Month >= DateTime.Today.Month - 1
+                    select t.Data;
+
+            return x;
+        }
+
+        public IEnumerable<int> GetSelectedRecordsPerYear(int sensorId)
+        {
+            var x = from t in GetAll()
+                    where t.SensorId == sensorId && t.Date.Year >= DateTime.Today.Year - 1
+                    select t.Data;
+
+            return x;
         }
     }
 }

@@ -29,9 +29,7 @@ namespace SmartHouse.BLL.BusinessModels
             IEnumerable<int> selectedRecords;
             DateTime dateTime = DateTime.Now;
 
-            selectedSensors = from t in Database.Sensors.GetAll()
-                              where t.HouseId == houseId && t.RoomId == roomId
-                              select t;
+            selectedSensors = Database.Sensors.GetSelectedSensors(houseId, roomId);
 
             if (selectedSensors.Count() == 0)
             {
@@ -41,9 +39,7 @@ namespace SmartHouse.BLL.BusinessModels
             switch (duration)
             {
                 case 0:
-                    selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Day >= DateTime.Today.Day - 1
-                                      select t.Data;
+                    selectedRecords = Database.Records.GetSelectedRecordsPerDay(selectedSensors.First().Id);
 
                     if (selectedRecords.Count() == 0)
                     {
@@ -52,9 +48,7 @@ namespace SmartHouse.BLL.BusinessModels
 
                     return (double)selectedRecords.Average();
                 case 1:
-                    selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Month >= DateTime.Today.Month - 1
-                                      select t.Data;
+                    selectedRecords = Database.Records.GetSelectedRecordsPerMonth(selectedSensors.First().Id);
                     if (selectedRecords.Count() == 0)
                     {
                         return double.NaN;
@@ -62,9 +56,7 @@ namespace SmartHouse.BLL.BusinessModels
 
                     return (double)selectedRecords.Average();
                 default:
-                    selectedRecords = from t in Database.Records.GetAll()
-                                      where t.SensorId == selectedSensors.First().Id && t.Date.Year >= DateTime.Today.Year - 1
-                                      select t.Data;
+                    selectedRecords = Database.Records.GetSelectedRecordsPerYear(selectedSensors.First().Id);
 
                     if (selectedRecords.Count() == 0)
                     {
