@@ -9,6 +9,7 @@ using SmartHouse.PL.Util;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 
 namespace SmartHouse.PL.Controllers
@@ -224,7 +225,7 @@ namespace SmartHouse.PL.Controllers
             void EnterValueMenu(ISmartService smartService, string myStr)
             {
                 int number;
-                string data = "a";
+                string data;
                 int house;
                 int room;
 
@@ -237,7 +238,8 @@ namespace SmartHouse.PL.Controllers
                         house = houses[number - 1].Id;
 
                         Console.WriteLine("Enter value of temperature in house");
-                        while (!IsDigit(data))
+                        data = Console.ReadLine();
+                        while (IsDigit(data) == false)
                         {
                             data = Console.ReadLine();
                         }
@@ -263,9 +265,10 @@ namespace SmartHouse.PL.Controllers
 
                         int numberRoom = ChooseOption("Back", rooms);
                         if (numberRoom == 0) return;
-                        room = rooms[number - 1].Id;
+                        room = rooms[numberRoom - 1].Id;
                         Console.WriteLine($"Enter value of temperature in room {room} house {house}");
-                        while (!IsDigit(data))
+                        data = Console.ReadLine();
+                        while (IsDigit(data) == false)
                         {
                             data = Console.ReadLine();
                         }
@@ -333,7 +336,7 @@ namespace SmartHouse.PL.Controllers
 
                         numberRoom = ChooseOption("Back", rooms);
                         if (numberRoom == 0) return;
-                        room = rooms[number - 1].Id;
+                        room = rooms[numberRoom - 1].Id;
 
                         numberDuration = ChooseOption("Back", Durations);
                         if (numberDuration == 0) return;
@@ -362,9 +365,13 @@ namespace SmartHouse.PL.Controllers
         private bool IsDigit(string str)
         {
             if (str == "") return false;
+            int count = 0;
             foreach (char c in str)
             {
-                if (c > '0' && c < '9')
+                count++;
+                if ((str[0] == '-' || str[0] == '–' || str[0] == '—' || str[0] == '―') && count == 1) continue;
+
+                if (c >= 48 && c <= 57)
                 {
                     return true;
                 }
@@ -582,16 +589,16 @@ namespace SmartHouse.PL.Controllers
                     var mapperRecord = new MapperConfiguration(cfg => cfg.CreateMap<RecordDTO, RecordViewModel>()).CreateMapper();
                     coll = mapperRecord.Map<IEnumerable<RecordDTO>, List<RecordViewModel>>(RecordsDtos);
 
-                    s = string.Format("{0, 5} | {1, 20}  | {2, 10}  | {3, 10}", "Id", "Date", "Data", "Sensor Id");
+                    s = string.Format("{0, 5} | {1, 25}  | {2, 13}  | {3, 13}", "Id", "Date", "Data", "Sensor Id");
                     Console.WriteLine(s);
-                    for (int i = 0; i < s.Length - 20; i++)
+                    for (int i = 0; i < s.Length - 31; i++)
                     {
                         Console.Write("-=-");
                     }
                     Console.WriteLine("");
                     foreach (RecordViewModel obj in coll)
                     {
-                        s = string.Format("{0, 5} | {1, 20}  | {2, 10}  | {3, 10}", obj.Id, obj.Date, obj.Data, obj.SensorId);
+                        s = string.Format("{0, 5} | {1, 25}  | {2, 13}  | {3, 13}", obj.Id, obj.Date, obj.Data, obj.SensorId);
                         Console.WriteLine(s);
                     }
                     index = ChooseOption("Back", Options);
@@ -627,10 +634,9 @@ namespace SmartHouse.PL.Controllers
                                     else 
                                     if (Convert.ToInt32(opt) == 1)
                                     {
-                                        Console.WriteLine("Enter new date");
+                                        DateTime date = inputDate();
                                         try
                                         {
-                                            DateTime date = Convert.ToDateTime(Console.ReadLine());
                                             smartService.Update(id, "Record", "Undefined", null, date);
                                             flag = true;
                                         }
@@ -706,6 +712,19 @@ namespace SmartHouse.PL.Controllers
             houses = mapperHouse.Map<IEnumerable<HouseDTO>, List<HouseViewModel>>(houseDtos);
             return houses;
         }
+        private DateTime inputDate()
+        {
+            DateTime dob; 
+            string input;
 
+            do
+            {
+                Console.WriteLine("Enter new date in format Day/Month/Year hour:minut:seconds AM(or PM)");
+                input = Console.ReadLine();
+            }
+            while (!DateTime.TryParseExact(input, "dd/MM/yyyy hh:mm:ss tt", null, DateTimeStyles.None, out dob));
+
+            return dob;
+        }
     }
 }
